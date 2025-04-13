@@ -1,25 +1,23 @@
-# PersonalWebsite
+# Personal Website
+
+A personal website built with React, designed to showcase my skills, projects, and experiences.
 
 ## Overview
 
-This repository contains the code for my personal website, a platform showcasing my skills, projects, and experience. The site is designed to be responsive, interactive, and provide a central hub for anyone interested in learning more about me.
+This repository contains the source code for my personal website. It's a single-page application (SPA) built with React and utilizes various libraries for styling, animations, and data fetching.  The website includes sections for an introduction, projects, a blog (fetched from RSS feed), and contact information.
 
-## Features
+## Built With
 
-*   **Portfolio:** Displays a collection of projects I've worked on, with descriptions and links to live demos or GitHub repositories.
-*   **About Me:** A detailed overview of my background, skills, and interests.
-*   **Contact Form:** Allows visitors to easily reach out to me with questions or opportunities.
-*   **Blog (Optional):** A space for sharing my thoughts and insights on various topics.
-
-## Built With:
-
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoWidth=60) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoWidth=60) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoWidth=60) ![Vite](https://img.shields.io/badge/Vite-B470F0?style=for-the-badge&logo=vite&logoWidth=60) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoWidth=60) ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoWidth=60)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoWidth=60) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoWidth=60) ![Vite](https://img.shields.io/badge/Vite-B1B1B1?style=for-the-badge&logo=vite&logoColor=FF4949&logoWidth=60) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoWidth=60) ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoWidth=60) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white&logoWidth=60)
 
 ## Installation
 
+To run this project locally, you'll need to have Node.js and npm (or yarn) installed.
+
 1.  **Clone the repository:**
+
     ```bash
-    git clone https://github.com/your-username/PersonalWebsite.git
+    git clone https://github.com/<your_github_username>/PersonalWebsite.git
     cd PersonalWebsite
     ```
 
@@ -27,6 +25,8 @@ This repository contains the code for my personal website, a platform showcasing
 
     ```bash
     npm install
+    # or
+    yarn install
     ```
 
 ## Usage
@@ -35,49 +35,61 @@ This repository contains the code for my personal website, a platform showcasing
 
     ```bash
     npm run dev
+    # or
+    yarn dev
     ```
 
-    This will launch the website in your browser, usually at `http://localhost:5173/`.
+    This will start the Vite development server, and you can view the website in your browser at the address provided in the console (usually `http://localhost:5173`).
 
 2.  **Build for production:**
 
     ```bash
     npm run build
+    # or
+    yarn build
     ```
 
-    This will create an optimized build of the website in the `dist` directory.  You can then deploy the contents of this directory to a static hosting provider like Netlify, Vercel, or GitHub Pages.
+    This will create a `dist` directory containing the production-ready files.
 
-## Configuration
+3.  **Preview the production build:**
 
-Several configuration options are available, allowing you to customize the website to your specific needs:
-
-*   **`package.json`:**  Contains dependencies managed by npm. Includes development and production dependencies.  Check that dependencies are correctly installed.
-*   **Environment Variables:**  Consider using environment variables (e.g., `.env` file with `vite`) for sensitive information like API keys for contact form submission.  These variables can be accessed within the application using `import.meta.env`.
+     ```bash
+     npm run preview
+     # or
+     yarn preview
+     ```
 
 ## Dependencies
 
-The following key dependencies are used in this project:
-
-*   `react`: A JavaScript library for building user interfaces.
-*   `react-dom`: Provides DOM-specific methods that are useful for managing the app in the browser.
-*   `react-router-dom`: Enables navigation and routing within the application.
-*   `framer-motion`:  A library for creating smooth and engaging animations.
-*   `axios`: Promise based HTTP client for the browser and node.js
-*   `emailjs-browser`: Allows sending emails directly from the client-side.
-*   `lucide-react`: Set of consistent, pixel-perfect icons for React.
-
-Other dependencies are listed in `package.json`.
+```json
+{
+  "@emailjs/browser": "^4.4.1",
+  "axios": "^1.8.1",
+  "cheerio": "^1.0.0",
+  "cors": "^2.8.5",
+  "csv-parser": "^3.2.0",
+  "express": "^4.21.2",
+  "framer-motion": "^12.4.7",
+  "lucide-react": "^0.475.0",
+  "node-fetch": "^3.3.2",
+  "react": "^19.0.0",
+  "react-dom": "^19.0.0",
+  "react-router-dom": "^7.2.0",
+  "rss-parser": "^3.13.0",
+  "esbuild": ">=0.25.0"
+}
+```
 
 ## Contributing
 
-Contributions are welcome! If you find a bug or have a suggestion, please open an issue. If you'd like to contribute code, please follow these steps:
+Contributions are welcome!  If you find a bug or have a suggestion for improvement, please open an issue or submit a pull request.
 
 1.  Fork the repository.
 2.  Create a new branch for your feature or bug fix.
-3.  Make your changes.
-4.  Test your changes thoroughly.
-5.  Submit a pull request.
+3.  Make your changes and commit them with descriptive messages.
+4.  Push your branch to your fork.
+5.  Submit a pull request to the main repository.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE) - see the `LICENSE` file for details.
