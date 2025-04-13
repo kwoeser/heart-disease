@@ -1,139 +1,110 @@
-# Personal Website
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# PersonalWebsite
 
 ## Overview
 
-This repository contains the source code for my personal website. The site is designed to showcase my skills, projects, and experience. It's built using modern web technologies and is intended to be responsive and accessible.
+This repository contains the code for my personal website. It's a platform to showcase my projects, skills, and experience. The site is built with modern web technologies, providing a responsive and engaging user experience.
 
 ## Features
 
-*   **About Me:** A brief introduction and overview of my background.
-*   **Projects:** A showcase of my past and current projects, with details and links where applicable.
-*   **Skills:** A list of my technical skills and areas of expertise.
-*   **Blog/Articles:** (If applicable) A section for sharing my thoughts and insights on various topics.
-*   **Contact:** A contact form or links to my social media profiles for easy communication.
+*   **Portfolio Showcase:** Highlights my projects with descriptions, images, and links.
+*   **Skills Section:** Lists my technical skills and areas of expertise.
+*   **Blog (Optional):** Contains articles and posts on relevant topics. (Currently inactive).
+*   **Contact Form:** Allows visitors to easily reach out to me.
+*   **Responsive Design:** Adapts to different screen sizes and devices.
 
 ## Built With
 
-This project is built using the following technologies:
-
-*   **React:** [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)  A JavaScript library for building user interfaces.
-*   **Node.js:** [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) A JavaScript runtime built on Chrome's V8 JavaScript engine.
-*   **Vite:** [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)  Next Generation Frontend Tooling.
-*   **Express:** [![Expressjs](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)](https://expressjs.com/)  A fast, unopinionated, minimalist web framework for Node.js.
-*   **Framer Motion:** [![Framer Motion](https://img.shields.io/badge/FramerMotion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/) A production-ready motion library for React.
-*   **Lucide React:** [![Lucide](https://img.shields.io/badge/Lucide-1A202C?style=for-the-badge&logo=lucide&logoColor=white)](https://lucide.dev/)  A library of beautiful, consistent icons.
-*   **Axios:** A Promise based HTTP client for the browser and node.js.
-*   **EmailJS:**  A service for sending emails from your client-side applications.
-*   **Cheerio:** A fast, flexible, and lean implementation of core jQuery designed specifically for the server.
-*   **CORS:** A node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
-*   **CSV-Parser:** A streaming CSV parser for Node.js
-*   **RSS-Parser:** A Node.js RSS parser.
-
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react) ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=flat-square&logo=vite) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript) ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js) ![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express)
 ## Installation
 
-1.  **Clone the repository:**
+1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/PersonalWebsite.git
+    git clone https://github.com/YOUR_USERNAME/PersonalWebsite.git
+    ```
+
+2.  Navigate to the project directory:
+
+    ```bash
     cd PersonalWebsite
     ```
 
-2.  **Install dependencies:**
+3.  Install dependencies:
 
     ```bash
     npm install
-    # or
-    yarn install
-    # or
-    pnpm install
     ```
 
 ## Usage
 
-1.  **Start the development server:**
+1.  Start the development server:
 
     ```bash
     npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
     ```
 
-    This will start the development server, and you can access the website in your browser at the address provided (usually `http://localhost:5173/`).
+    This will start the application in development mode, typically at `http://localhost:5173/`.
 
-2.  **Build for production:**
+2.  Build for production:
 
     ```bash
     npm run build
-    # or
-    yarn build
-    # or
-    pnpm build
     ```
 
-    This will create a production-ready build of the website in the `dist` directory.  You can then deploy the contents of this folder to your hosting provider.
+    This will create a production-ready build in the `dist` directory.
+
+3.  To run the express backend (if applicable):
+
+    ```bash
+    node server.js
+    ```
+    or
+    ```bash
+    nodemon server.js
+    ```
+
+## Configuration
+
+The following environment variables are used (if backend is enabled):
+
+*   `PORT`: The port on which the server listens (defaults to 3000).
+*   `EMAILJS_SERVICE_ID`: The EmailJS service ID.
+*   `EMAILJS_TEMPLATE_ID`: The EmailJS template ID.
+*   `EMAILJS_PUBLIC_KEY`: The EmailJS public key.
+
+You can create a `.env` file in the root directory to define these variables.
 
 ## Dependencies
 
-The project's dependencies, as defined in `package.json`, are as follows:
+*   **Frontend:**
+    *   `react`:  A JavaScript library for building user interfaces.
+    *   `react-dom`:  Provides DOM-specific methods for React.
+    *   `react-router-dom`:  Provides routing functionalities for React applications.
+    *   `framer-motion`:  A production-ready motion library for React.
+    *   `lucide-react`: A collection of beautiful icons for React.
+    *   `axios`: Promise based HTTP client for the browser and node.js
+    *   `vite`: Next generation frontend tooling.
 
-```json
-{
-  "name": "my-portfolio",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@emailjs/browser": "^4.4.1",
-    "axios": "^1.8.1",
-    "cheerio": "^1.0.0",
-    "cors": "^2.8.5",
-    "csv-parser": "^3.2.0",
-    "express": "^4.21.2",
-    "framer-motion": "^12.4.7",
-    "lucide-react": "^0.475.0",
-    "node-fetch": "^3.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.2.0",
-    "rss-parser": "^3.13.0"
-  },
-  
-  "devDependencies": {
-    "@eslint/js": "^9.19.0",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.19.0",
-    "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.18",
-    "globals": "^15.14.0",
-    "vite": "^6.2.5"
-  }
-}
-```
+*   **Backend:**
+    *   `express`:  A minimal and flexible Node.js web application framework.
+    *   `cors`:  Middleware for enabling Cross-Origin Resource Sharing (CORS).
+    *   `@emailjs/browser`:  A library for sending emails using EmailJS.
+    *   `csv-parser`:  A CSV parser for Node.js.
+    *   `cheerio`:  Fast, flexible, and lean implementation of core jQuery designed specifically for the server.
+    *   `node-fetch`:  A light-weight module that brings the Fetch API to Node.js
+    *   `rss-parser`:  A library for parsing RSS feeds.
 
 ## Contributing
 
-Contributions are welcome! If you find a bug or have a suggestion, please open an issue or submit a pull request.
-
-Here's how to contribute:
+Contributions are welcome! Here's how you can contribute:
 
 1.  Fork the repository.
 2.  Create a new branch for your feature or bug fix.
-3.  Make your changes and commit them with descriptive commit messages.
-4.  Push your changes to your fork.
-5.  Submit a pull request to the main repository.
+3.  Make your changes.
+4.  Test your changes thoroughly.
+5.  Commit your changes with a descriptive message.
+6.  Push your branch to your forked repository.
+7.  Submit a pull request.
 
 ## License
 
