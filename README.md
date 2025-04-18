@@ -1,6 +1,6 @@
-### 📘 Chapter Summaries
+### Chapter Summaries
 
-### ✅ Chapter 1: DataFrames, Feature Engineering, and Exploratory Tools
+### Chapter 1: DataFrames, Feature Engineering, and Exploratory Tools
 
 This chapter introduced foundational skills in data manipulation using **pandas**. The focus was on understanding how to:
 
@@ -16,7 +16,7 @@ The exercises used the **Titanic dataset** to explore survival patterns and prep
 
 ---
 
-### ✅ Chapter 2: Custom Transformers and Data Pipelines
+### Chapter 2: Custom Transformers and Data Pipelines
 
 This chapter focused on building reusable, clean preprocessing logic using **scikit-learn pipelines**. Key topics included:
 
@@ -32,3 +32,18 @@ By the end of the chapter, we constructed a robust and modular pipeline that can
 
 ---
 
+### Chapter 3: GitHub Libraries and Correlation-Based Feature Selection
+
+This chapter focused on organizing reusable code and enhancing feature engineering through correlation analysis.
+
+- Introduced the use of a **GitHub-hosted `library.py`** file to store and reuse custom transformers across notebooks
+- Practiced importing library code using `wget` and `%run` in Jupyter/Colab
+- Explored **Pearson correlation** to identify multicollinearity between features
+- Applied **NumPy masking** (`np.triu`, `np.fill_diagonal`) to isolate the upper triangle of a correlation matrix
+- Built `CustomPearsonTransformer`:
+  - Calculates correlation in `fit()` and identifies highly correlated columns
+  - Drops correlated columns in `transform()` with an error check if `fit()` hasn't been called
+
+This chapter emphasized **modular design**, **code reuse**, and **data quality improvements** in preprocessing workflows.
+
+---
