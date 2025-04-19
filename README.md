@@ -48,7 +48,7 @@ This chapter emphasized **modular design**, **code reuse**, and **data quality i
 
 ---
 
-### ✅ Chapter 4: Outlier Handling and Clipping with Custom Transformers
+### Chapter 4: Outlier Handling and Clipping with Custom Transformers
 
 This chapter focused on managing outliers using statistical rules and expanding the transformer library with new tools.
 
