@@ -224,192 +224,192 @@ class CustomOHETransformer(BaseEstimator, TransformerMixin):
         return pd.concat([X_, dummies], axis=1)
 
 
-# class CustomDropColumnsTransformer(BaseEstimator, TransformerMixin):
-#     """
-#     A transformer that either drops or keeps specified columns in a DataFrame.
+class CustomDropColumnsTransformer(BaseEstimator, TransformerMixin):
+    """
+    A transformer that either drops or keeps specified columns in a DataFrame.
 
-#     This transformer follows the scikit-learn transformer interface and can be used in
-#     a scikit-learn pipeline. It allows for selectively keeping or dropping columns
-#     from a DataFrame based on a provided list.
+    This transformer follows the scikit-learn transformer interface and can be used in
+    a scikit-learn pipeline. It allows for selectively keeping or dropping columns
+    from a DataFrame based on a provided list.
 
-#     Parameters
-#     ----------
-#     column_list : List[str]
-#         List of column names to either drop or keep, depending on the action parameter.
-#     action : str, default='drop'
-#         The action to perform on the specified columns. Must be one of:
-#         - 'drop': Remove the specified columns from the DataFrame
-#         - 'keep': Keep only the specified columns in the DataFrame
+    Parameters
+    ----------
+    column_list : List[str]
+        List of column names to either drop or keep, depending on the action parameter.
+    action : str, default='drop'
+        The action to perform on the specified columns. Must be one of:
+        - 'drop': Remove the specified columns from the DataFrame
+        - 'keep': Keep only the specified columns in the DataFrame
 
-#     Attributes
-#     ----------
-#     column_list : List[str]
-#         The list of column names to operate on.
-#     action : str
-#         The action to perform ('drop' or 'keep').
+    Attributes
+    ----------
+    column_list : List[str]
+        The list of column names to operate on.
+    action : str
+        The action to perform ('drop' or 'keep').
 
-#     Examples
-#     --------
-#     >>> import pandas as pd
-#     >>> df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6], 'C': [7, 8, 9]})
-#     >>>
-#     >>> # Drop columns example
-#     >>> dropper = CustomDropColumnsTransformer(column_list=['A', 'B'], action='drop')
-#     >>> dropped_df = dropper.fit_transform(df)
-#     >>> dropped_df.columns.tolist()
-#     ['C']
-#     >>>
-#     >>> # Keep columns example
-#     >>> keeper = CustomDropColumnsTransformer(column_list=['A', 'C'], action='keep')
-#     >>> kept_df = keeper.fit_transform(df)
-#     >>> kept_df.columns.tolist()
-#     ['A', 'C']
-#     """
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6], 'C': [7, 8, 9]})
+    >>>
+    >>> # Drop columns example
+    >>> dropper = CustomDropColumnsTransformer(column_list=['A', 'B'], action='drop')
+    >>> dropped_df = dropper.fit_transform(df)
+    >>> dropped_df.columns.tolist()
+    ['C']
+    >>>
+    >>> # Keep columns example
+    >>> keeper = CustomDropColumnsTransformer(column_list=['A', 'C'], action='keep')
+    >>> kept_df = keeper.fit_transform(df)
+    >>> kept_df.columns.tolist()
+    ['A', 'C']
+    """
 
-#     def __init__(self, column_list: List[str], action: Literal['drop', 'keep'] = 'drop') -> None:
-#         """
-#         Initialize the CustomDropColumnsTransformer.
+    def __init__(self, column_list: List[str], action: Literal['drop', 'keep'] = 'drop') -> None:
+        """
+        Initialize the CustomDropColumnsTransformer.
 
-#         Parameters
-#         ----------
-#         column_list : List[str]
-#             List of column names to either drop or keep.
-#         action : str, default='drop'
-#             The action to perform on the specified columns.
-#             Must be either 'drop' or 'keep'.
+        Parameters
+        ----------
+        column_list : List[str]
+            List of column names to either drop or keep.
+        action : str, default='drop'
+            The action to perform on the specified columns.
+            Must be either 'drop' or 'keep'.
 
-#         Raises
-#         ------
-#         AssertionError
-#             If action is not 'drop' or 'keep', or if column_list is not a list.
-#         """
-#         assert action in ['keep', 'drop'], f'DropColumnsTransformer action {action} not in ["keep", "drop"]'
-#         assert isinstance(column_list, list), f'DropColumnsTransformer expected list but saw {type(column_list)}'
-#         self.column_list: List[str] = column_list
-#         self.action: Literal['drop', 'keep'] = action
+        Raises
+        ------
+        AssertionError
+            If action is not 'drop' or 'keep', or if column_list is not a list.
+        """
+        assert action in ['keep', 'drop'], f'DropColumnsTransformer action {action} not in ["keep", "drop"]'
+        assert isinstance(column_list, list), f'DropColumnsTransformer expected list but saw {type(column_list)}'
+        self.column_list: List[str] = column_list
+        self.action: Literal['drop', 'keep'] = action
 
-#     #your code below
-#     def fit(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> 'CustomDropColumnsTransformer':
-#       """Fit method - performs no actual fitting operation."""
-#       return self
+    #your code below
+    def fit(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> 'CustomDropColumnsTransformer':
+      """Fit method - performs no actual fitting operation."""
+      return self
 
-#     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
-#       """
-#       Apply dropping or keeping of columns to the input DataFrame.
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+      """
+      Apply dropping or keeping of columns to the input DataFrame.
 
-#       Parameters
-#       ----------
-#       X : pandas.DataFrame
-#           The DataFrame to transform.
+      Parameters
+      ----------
+      X : pandas.DataFrame
+          The DataFrame to transform.
 
-#       Returns
-#       -------
-#       pandas.DataFrame
-#           A copy of the input DataFrame with the specified columns dropped or kept.
+      Returns
+      -------
+      pandas.DataFrame
+          A copy of the input DataFrame with the specified columns dropped or kept.
 
-#       Raises
-#       ------
-#       AssertionError
-#           If X is not a pandas DataFrame.
-#       """
-#       assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
-#       missing_cols = set(self.column_list) - set(X.columns.to_list())
-#       if self.action == 'drop':
-#         assert not missing_cols, f'DropColumnsTransformer does not contain these columns to drop: {missing_cols}'
-#         X_ = X.drop(columns=self.column_list)
-#       elif self.action == 'keep':
-#         assert not missing_cols, f'{self.__class__.__name__}.transform unknown columns to keep: {missing_cols}'
-#         X_ = X[self.column_list]
-#       return X_
+      Raises
+      ------
+      AssertionError
+          If X is not a pandas DataFrame.
+      """
+      assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
+      missing_cols = set(self.column_list) - set(X.columns.to_list())
+      if self.action == 'drop':
+        assert not missing_cols, f'DropColumnsTransformer does not contain these columns to drop: {missing_cols}'
+        X_ = X.drop(columns=self.column_list)
+      elif self.action == 'keep':
+        assert not missing_cols, f'{self.__class__.__name__}.transform unknown columns to keep: {missing_cols}'
+        X_ = X[self.column_list]
+      return X_
 
-# class CustomTukeyTransformer(BaseEstimator, TransformerMixin):
-#     """
-#     A transformer that applies Tukey's fences (inner or outer) to a specified column in a pandas DataFrame.
+class CustomTukeyTransformer(BaseEstimator, TransformerMixin):
+    """
+    A transformer that applies Tukey's fences (inner or outer) to a specified column in a pandas DataFrame.
 
-#     This transformer follows the scikit-learn transformer interface and can be used in a scikit-learn pipeline.
-#     It clips values in the target column based on Tukey's inner or outer fences.
+    This transformer follows the scikit-learn transformer interface and can be used in a scikit-learn pipeline.
+    It clips values in the target column based on Tukey's inner or outer fences.
 
-#     Parameters
-#     ----------
-#     target_column : Hashable
-#         The name of the column to apply Tukey's fences on.
-#     fence : Literal['inner', 'outer'], default='outer'
-#         Determines whether to use the inner fence (1.5 * IQR) or the outer fence (3.0 * IQR).
+    Parameters
+    ----------
+    target_column : Hashable
+        The name of the column to apply Tukey's fences on.
+    fence : Literal['inner', 'outer'], default='outer'
+        Determines whether to use the inner fence (1.5 * IQR) or the outer fence (3.0 * IQR).
 
-#     Attributes
-#     ----------
-#     inner_low : Optional[float]
-#         The lower bound for clipping using the inner fence (Q1 - 1.5 * IQR).
-#     outer_low : Optional[float]
-#         The lower bound for clipping using the outer fence (Q1 - 3.0 * IQR).
-#     inner_high : Optional[float]
-#         The upper bound for clipping using the inner fence (Q3 + 1.5 * IQR).
-#     outer_high : Optional[float]
-#         The upper bound for clipping using the outer fence (Q3 + 3.0 * IQR).
+    Attributes
+    ----------
+    inner_low : Optional[float]
+        The lower bound for clipping using the inner fence (Q1 - 1.5 * IQR).
+    outer_low : Optional[float]
+        The lower bound for clipping using the outer fence (Q1 - 3.0 * IQR).
+    inner_high : Optional[float]
+        The upper bound for clipping using the inner fence (Q3 + 1.5 * IQR).
+    outer_high : Optional[float]
+        The upper bound for clipping using the outer fence (Q3 + 3.0 * IQR).
 
-#     Examples
-#     --------
-#     >>> import pandas as pd
-#     >>> df = pd.DataFrame({'values': [10, 15, 14, 20, 100, 5, 7]})
-#     >>> tukey_transformer = CustomTukeyTransformer(target_column='values', fence='inner')
-#     >>> transformed_df = tukey_transformer.fit_transform(df)
-#     >>> transformed_df
-#     """
-#     def __init__(self, target_column: Hashable, fence: Literal['inner', 'outer'] = 'outer') -> None:
-#         self.target_column = target_column
-#         self.fence = fence
-#         self.inner_low: Optional[float] = None
-#         self.outer_low: Optional[float] = None
-#         self.inner_high: Optional[float] = None
-#         self.outer_high: Optional[float] = None
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'values': [10, 15, 14, 20, 100, 5, 7]})
+    >>> tukey_transformer = CustomTukeyTransformer(target_column='values', fence='inner')
+    >>> transformed_df = tukey_transformer.fit_transform(df)
+    >>> transformed_df
+    """
+    def __init__(self, target_column: Hashable, fence: Literal['inner', 'outer'] = 'outer') -> None:
+        self.target_column = target_column
+        self.fence = fence
+        self.inner_low: Optional[float] = None
+        self.outer_low: Optional[float] = None
+        self.inner_high: Optional[float] = None
+        self.outer_high: Optional[float] = None
 
-#     def fit(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> 'CustomTukeyTransformer':
-#         """
-#         Compute Tukey's fences for the specified column.
+    def fit(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> 'CustomTukeyTransformer':
+        """
+        Compute Tukey's fences for the specified column.
 
-#         Raises
-#         ------
-#         AssertionError
-#             If the target column is not in the DataFrame.
-#         """
-#         assert self.target_column in X.columns, \
-#             f'{self.__class__.__name__}.fit: unknown column {self.target_column}'
+        Raises
+        ------
+        AssertionError
+            If the target column is not in the DataFrame.
+        """
+        assert self.target_column in X.columns, \
+            f'{self.__class__.__name__}.fit: unknown column {self.target_column}'
 
-#         q1 = X[self.target_column].quantile(0.25)
-#         q3 = X[self.target_column].quantile(0.75)
-#         iqr = q3 - q1
+        q1 = X[self.target_column].quantile(0.25)
+        q3 = X[self.target_column].quantile(0.75)
+        iqr = q3 - q1
 
-#         self.inner_low = q1 - 1.5 * iqr
-#         self.inner_high = q3 + 1.5 * iqr
-#         self.outer_low = q1 - 3.0 * iqr
-#         self.outer_high = q3 + 3.0 * iqr
+        self.inner_low = q1 - 1.5 * iqr
+        self.inner_high = q3 + 1.5 * iqr
+        self.outer_low = q1 - 3.0 * iqr
+        self.outer_high = q3 + 3.0 * iqr
 
-#         return self
+        return self
 
-#     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
-#         """
-#         Clip values using Tukey's fences and reset index.
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        """
+        Clip values using Tukey's fences and reset index.
 
-#         Raises
-#         ------
-#         AssertionError
-#             If fit() has not been called yet.
-#         """
-#         assert self.inner_low is not None and self.outer_low is not None, \
-#             f'{self.__class__.__name__}.fit has not been called.'
+        Raises
+        ------
+        AssertionError
+            If fit() has not been called yet.
+        """
+        assert self.inner_low is not None and self.outer_low is not None, \
+            f'{self.__class__.__name__}.fit has not been called.'
 
-#         X_ = X.copy()
+        X_ = X.copy()
 
-#         if self.fence == 'inner':
-#             low, high = self.inner_low, self.inner_high
-#         else:
-#             low, high = self.outer_low, self.outer_high
+        if self.fence == 'inner':
+            low, high = self.inner_low, self.inner_high
+        else:
+            low, high = self.outer_low, self.outer_high
 
-#         X_[self.target_column] = X_[self.target_column].clip(lower=low, upper=high)
-#         return X_.reset_index(drop=True)
+        X_[self.target_column] = X_[self.target_column].clip(lower=low, upper=high)
+        return X_.reset_index(drop=True)
 
-#     def fit_transform(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> pd.DataFrame:
-#         return self.fit(X).transform(X)
+    def fit_transform(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> pd.DataFrame:
+        return self.fit(X).transform(X)
 
 
 
@@ -419,7 +419,7 @@ titanic_transformer = Pipeline(steps=[
     ('class', CustomMappingTransformer('Class', {'Crew': 0, 'C3': 1, 'C2': 2, 'C1': 3})),
     #add your new ohe step below
     ('joined_ohe', CustomOHETransformer(target_column='Joined')),
-    # ('fare', CustomTukeyTransformer(target_column='Fare', fence='outer')),
+    ('fare', CustomTukeyTransformer(target_column='Fare', fence='outer')),
     ], verbose=True)
 
 
