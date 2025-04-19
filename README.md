@@ -47,3 +47,17 @@ This chapter focused on organizing reusable code and enhancing feature engineeri
 This chapter emphasized **modular design**, **code reuse**, and **data quality improvements** in preprocessing workflows.
 
 ---
+
+### ✅ Chapter 4: Outlier Handling and Clipping with Custom Transformers
+
+This chapter focused on managing outliers using statistical rules and expanding the transformer library with new tools.
+
+- Introduced the **3-sigma rule** for detecting extreme values
+- Created `CustomSigma3Transformer` to clip a column within ±3 standard deviations of the mean
+- Created `CustomTukeyTransformer` to clip values using Tukey’s **inner** or **outer fences** based on IQR
+- Both transformers were added to `library.py`, followed scikit-learn conventions, and included clear assertion checks
+- Compared `.query()` and `.drop()` for row filtering and noted their handling of NaNs
+
+By the end, we had reusable tools for clipping outliers and a deeper understanding of how different statistical thresholds affect the data.
+
+---
