@@ -322,6 +322,96 @@ class CustomDropColumnsTransformer(BaseEstimator, TransformerMixin):
         X_ = X[self.column_list]
       return X_
 
+class CustomTukeyTransformer(BaseEstimator, TransformerMixin):
+    """
+    A transformer that applies Tukey's fences (inner or outer) to a specified column in a pandas DataFrame.
+
+    This transformer follows the scikit-learn transformer interface and can be used in a scikit-learn pipeline.
+    It clips values in the target column based on Tukey's inner or outer fences.
+
+    Parameters
+    ----------
+    target_column : Hashable
+        The name of the column to apply Tukey's fences on.
+    fence : Literal['inner', 'outer'], default='outer'
+        Determines whether to use the inner fence (1.5 * IQR) or the outer fence (3.0 * IQR).
+
+    Attributes
+    ----------
+    inner_low : Optional[float]
+        The lower bound for clipping using the inner fence (Q1 - 1.5 * IQR).
+    outer_low : Optional[float]
+        The lower bound for clipping using the outer fence (Q1 - 3.0 * IQR).
+    inner_high : Optional[float]
+        The upper bound for clipping using the inner fence (Q3 + 1.5 * IQR).
+    outer_high : Optional[float]
+        The upper bound for clipping using the outer fence (Q3 + 3.0 * IQR).
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'values': [10, 15, 14, 20, 100, 5, 7]})
+    >>> tukey_transformer = CustomTukeyTransformer(target_column='values', fence='inner')
+    >>> transformed_df = tukey_transformer.fit_transform(df)
+    >>> transformed_df
+    """
+    def __init__(self, target_column: Hashable, fence: Literal['inner', 'outer'] = 'outer') -> None:
+        self.target_column = target_column
+        self.fence = fence
+        self.inner_low: Optional[float] = None
+        self.outer_low: Optional[float] = None
+        self.inner_high: Optional[float] = None
+        self.outer_high: Optional[float] = None
+
+    def fit(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> 'CustomTukeyTransformer':
+        """
+        Compute Tukey's fences for the specified column.
+
+        Raises
+        ------
+        AssertionError
+            If the target column is not in the DataFrame.
+        """
+        assert self.target_column in X.columns, \
+            f'{self.__class__.__name__}.fit: unknown column {self.target_column}'
+
+        q1 = X[self.target_column].quantile(0.25)
+        q3 = X[self.target_column].quantile(0.75)
+        iqr = q3 - q1
+
+        self.inner_low = q1 - 1.5 * iqr
+        self.inner_high = q3 + 1.5 * iqr
+        self.outer_low = q1 - 3.0 * iqr
+        self.outer_high = q3 + 3.0 * iqr
+
+        return self
+
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        """
+        Clip values using Tukey's fences and reset index.
+
+        Raises
+        ------
+        AssertionError
+            If fit() has not been called yet.
+        """
+        assert self.inner_low is not None and self.outer_low is not None, \
+            f'{self.__class__.__name__}.fit has not been called.'
+
+        X_ = X.copy()
+
+        if self.fence == 'inner':
+            low, high = self.inner_low, self.inner_high
+        else:
+            low, high = self.outer_low, self.outer_high
+
+        X_[self.target_column] = X_[self.target_column].clip(lower=low, upper=high)
+        return X_.reset_index(drop=True)
+
+    def fit_transform(self, X: pd.DataFrame, y: Optional[Iterable] = None) -> pd.DataFrame:
+        return self.fit(X).transform(X)
+
+
 
 # first define the pipeline
 titanic_transformer = Pipeline(steps=[
@@ -340,4 +430,5 @@ customer_transformer = Pipeline(steps=[
     ('experience', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high': 2})),
     ('os', CustomOHETransformer(target_column='OS')),
     ('isp', CustomOHETransformer(target_column='ISP')),
+    ('time spent', CustomTukeyTransformer('Time Spent', 'inner')),
     ], verbose=True)
