@@ -61,3 +61,20 @@ This chapter focused on managing outliers using statistical rules and expanding 
 By the end, we had reusable tools for clipping outliers and a deeper understanding of how different statistical thresholds affect the data.
 
 ---
+
+### Chapter 5: Scaling, Skewness Reduction, and Robust Pipelines
+
+This chapter focused on scaling data and reducing skewness for more effective preprocessing.
+
+- Applied **Box-Cox transformation** to the `Fare` column:
+  - Tested lambdas from -5 to 5 to minimize skewness
+  - Skipped NaNs and selected the best lambda based on skew
+- Built **CustomRobustTransformer** to scale specific columns using **median** and **IQR**:
+  - Skipped binary columns with zero IQR
+  - Added assertion checks for fit status and valid columns
+- Created a wrapped version using **sklearn's RobustScaler**
+- Applied these tools to the **Cable Customer dataset**:
+  - Pipeline included dropping columns, mapping categories, one-hot encoding, imputing missing values, and scaling **'Time Spent'**
+  - Scaled **'Age'** for consistent feature ranges
+
+By the end, we had robust tools for handling skewed and outlier-prone data, integrated into flexible pipelines.
