@@ -512,11 +512,21 @@ titanic_transformer = Pipeline(steps=[
 
 
 customer_transformer = Pipeline(steps=[
-    #fill in the steps on your own
-    ('drop', CustomDropColumnsTransformer(['ID'], 'drop')),
+    # ('drop', CustomDropColumnsTransformer(['ID'], 'drop')),
     ('gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
     ('experience', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high': 2})),
-    ('os', CustomOHETransformer(target_column='OS')),
+    ('os', CustomMappingTransformer('OS', {'Android': 0, 'iOS': 1})),
     ('isp', CustomOHETransformer(target_column='ISP')),
-    ('time spent', CustomTukeyTransformer('Time Spent', 'inner')),
-    ], verbose=True)
+    ('robust_scaling_time', CustomRobustTransformer('Time Spent')),
+    ('robust_scaling_age', CustomRobustTransformer('Age'))
+])
+
+# customer_transformer = Pipeline(steps=[
+#     #fill in the steps on your own
+#     ('drop', CustomDropColumnsTransformer(['ID'], 'drop')),
+#     ('gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
+#     ('experience', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high': 2})),
+#     ('os', CustomOHETransformer(target_column='OS')),
+#     ('isp', CustomOHETransformer(target_column='ISP')),
+#     ('time spent', CustomTukeyTransformer('Time Spent', 'inner')),
+#     ], verbose=True)
