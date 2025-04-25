@@ -521,12 +521,12 @@ titanic_transformer = Pipeline(steps=[
     ('robust_scaling_age', CustomRobustTransformer('Age'))
 ])
 
-# customer_transformer = Pipeline(steps=[
-#     #fill in the steps on your own
-#     ('drop', CustomDropColumnsTransformer(['ID'], 'drop')),
-#     ('gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
-#     ('experience', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high': 2})),
-#     ('os', CustomOHETransformer(target_column='OS')),
-#     ('isp', CustomOHETransformer(target_column='ISP')),
-#     ('time spent', CustomTukeyTransformer('Time Spent', 'inner')),
-#     ], verbose=True)
+customer_transformer = Pipeline(steps=[
+    #fill in the steps on your own
+    ('drop', CustomDropColumnsTransformer(['ID'], 'drop')),
+    ('gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
+    ('experience', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high': 2})),
+    ('os', CustomOHETransformer(target_column='OS')),
+    ('isp', CustomOHETransformer(target_column='ISP')),
+    ('time spent', CustomTukeyTransformer('Time Spent', 'inner')),
+    ], verbose=True)
