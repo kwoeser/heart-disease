@@ -412,6 +412,96 @@ class CustomTukeyTransformer(BaseEstimator, TransformerMixin):
 
 
 
+
+
+class CustomRobustTransformer(BaseEstimator, TransformerMixin):
+  """Applies robust scaling to a specified column in a pandas DataFrame.
+    This transformer calculates the interquartile range (IQR) and median
+    during the `fit` method and then uses these values to scale the
+    target column in the `transform` method.
+
+    Parameters
+    ----------
+    column : str
+        The name of the column to be scaled.
+
+    Attributes
+    ----------
+    target_column : str
+        The name of the column to be scaled.
+    iqr : float
+        The interquartile range of the target column.
+    med : float
+        The median of the target column.
+  """
+
+  def __init__(self, column):
+      """
+      Initialize the transformer with the target column.
+      
+      Parameters
+      ----------
+      column : str
+        The column name to apply robust scaling to.
+      """
+      self.target_column = column
+      self.iqr = None
+      self.med = None
+      self.fitted = False
+
+  def fit(self, X, y=None):
+      """
+      Compute the IQR and median for the target column.
+        
+      Parameters
+      ----------
+      X : pandas.DataFrame
+          The input DataFrame containing the target column.
+      y : None
+          Ignored, present for API consistency by convention.
+
+      Returns
+      -------
+      self : CustomRobustTransformer
+          Fitted transformer.
+      """
+      assert self.target_column in X.columns, f"CustomRobustTransformer.fit unrecognizable column {self.target_column}."
+      col_data = X[self.target_column].dropna()
+      q1 = col_data.quantile(0.25)
+      q3 = col_data.quantile(0.75)
+      self.iqr = q3 - q1
+      self.med = col_data.median()
+      self.fitted = True  
+      return self
+
+  def transform(self, X):
+      """
+      Apply robust scaling to the target column based on the fitted IQR and median.
+      If IQR is zero (e.g., binary column), scaling is skipped for that column.
+
+      Parameters
+      ----------
+      X : pandas.DataFrame
+          The input DataFrame containing the target column.
+
+      Returns
+      -------
+      X_transformed : pandas.DataFrame
+          The DataFrame with the scaled target column.
+      """
+      assert self.fitted, f"CustomRobustTransformer instance is not fitted yet. Call fit with appropriate arguments before using this estimator."
+      assert self.target_column in X.columns, f"CustomRobustTransformer.transform unrecognizable column {self.target_column}."
+      
+      X_transformed = X.copy()
+
+      if self.iqr == 0 or pd.isna(self.iqr) or pd.isna(self.med):
+          # Skip scaling if IQR is zero or invalid
+          return X_transformed
+
+      X_transformed[self.target_column] = ((X_transformed[self.target_column] - self.med) / self.iqr)
+      return X_transformed
+
+
 # first define the pipeline
 titanic_transformer = Pipeline(steps=[
     ('gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
