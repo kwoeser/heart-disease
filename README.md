@@ -78,3 +78,22 @@ This chapter focused on scaling data and reducing skewness for more effective pr
   - Scaled **'Age'** for consistent feature ranges
 
 By the end, we had robust tools for handling skewed and outlier-prone data, integrated into flexible pipelines.
+
+---
+
+### Chapter 6: Distance Metrics and KNN Imputation
+
+This chapter explored similarity measures and practical imputation using K-nearest neighbors.
+
+- Calculated **Euclidean distance** between feature vectors using list comprehensions
+- Computed **cosine similarity** to compare the orientation of two vectors, demonstrating how small angle differences affect similarity scores
+- Built **CustomKNNTransformer**:
+  - Wrapped `KNNImputer` from scikit-learn
+  - Ensured pandas DataFrame input/output
+  - Added assertion checks for fit status and valid input types
+- Integrated **CustomKNNTransformer** into a full **pipeline**:
+  - Dropped IDs, mapped categorical fields, and one-hot encoded OS and ISP
+  - Scaled **'Time Spent'** and **'Age'** using **CustomRobustTransformer**
+  - Applied KNN imputation after scaling for consistent, complete data
+
+By the end, we had practical tools for distance-based imputation and a refined pipeline capable of handling missing values in real-world datasets.
