@@ -502,7 +502,6 @@ class CustomRobustTransformer(BaseEstimator, TransformerMixin):
       return X_transformed
 
 
-
 class CustomKNNTransformer(BaseEstimator, TransformerMixin):
   """Imputes missing values using KNN.
 
@@ -522,9 +521,8 @@ class CustomKNNTransformer(BaseEstimator, TransformerMixin):
       in this case, closer neighbors of a query point will have a
       greater influence than neighbors which are further away.
   """
-  #your code below
 
-  def __init__(self, n_neighbors=5, weights='uniform'):
+  def __init__(self, n_neighbors=4, weights='uniform'):
     self.n_neighbors = n_neighbors
     self.weights = weights
     self.knn_imputer = KNNImputer(n_neighbors=self.n_neighbors, weights=self.weights, add_indicator=False)
@@ -544,13 +542,17 @@ class CustomKNNTransformer(BaseEstimator, TransformerMixin):
     -------
       self : CustomKNNTransformer
           Returns the fitted transformer.
-        
+
     Raises
     ------
       AssertionError
           If input is not a pandas DataFrame.
     """
     assert isinstance(X, pd.DataFrame), "CustomKNNTransformer.fit input must be a pandas DataFrame."
+    if self.n_neighbors > len(X):
+      warnings.warn(f"n_neighbors ({self.n_neighbors}) > number of samples ({len(X)}). KNNImputer will use all samples.", UserWarning)
+
+
     self.knn_imputer.fit(X)
     self.fitted = True
     return self
@@ -579,6 +581,8 @@ class CustomKNNTransformer(BaseEstimator, TransformerMixin):
 
     transformed_data = self.knn_imputer.transform(X)
     return pd.DataFrame(transformed_data, columns=X.columns)
+
+
 
 
 # first define the pipeline
