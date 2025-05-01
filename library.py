@@ -677,6 +677,8 @@ class CustomTargetTransformer(BaseEstimator, TransformerMixin):
         """
         return self.fit(X, y).transform(X)
 
+titanic_variance_based_split = 107   #add to your library
+customer_variance_based_split = 113  #add to your library
 
 def find_random_state(
     features_df: pd.DataFrame,
