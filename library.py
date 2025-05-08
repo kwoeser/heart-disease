@@ -765,15 +765,15 @@ def find_random_state(
 
 
 titanic_transformer = Pipeline(steps=[
-    # ('drop', CustomDropColumnsTransformer(['ID'], 'drop')),
-    ('gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
-    ('experience', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high': 2})),
-    ('os', CustomMappingTransformer('OS', {'Android': 0, 'iOS': 1})),
-    ('isp', CustomOHETransformer(target_column='ISP')),
-    ('robust_scaling_time', CustomRobustTransformer('Time Spent')),
-    ('robust_scaling_age', CustomRobustTransformer('Age'))
+    ('map_gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
+    ('map_class', CustomMappingTransformer('Class', {'Crew': 0, 'C3': 1, 'C2': 2, 'C1': 3})),
+    ('target_joined', CustomTargetTransformer(col='Joined')),
+    ('tukey_age', CustomTukeyTransformer(target_column='Age', fence='outer')),
+    ('tukey_fare', CustomTukeyTransformer(target_column='Fare', fence='outer')),
+    ('scale_age', CustomRobustTransformer('Age')),
+    ('scale_fare', CustomRobustTransformer('Fare')),
+    ('imputer', CustomKNNTransformer(n_neighbors=5)),
 ])
-
 customer_transformer = Pipeline(steps=[
     #fill in the steps on your own
     ('drop', CustomDropColumnsTransformer(['ID'], 'drop')),
