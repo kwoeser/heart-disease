@@ -768,13 +768,14 @@ titanic_transformer = Pipeline(steps=[
     ], verbose=True)
 
 customer_transformer = Pipeline(steps=[
+    ('map_gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
+    ('map_level', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high':2})),
     ('map_os', CustomMappingTransformer('OS', {'Android': 0, 'iOS': 1})),
     ('target_isp', CustomTargetTransformer(col='ISP')),
-    ('map_level', CustomMappingTransformer('Experience Level', {'low': 0, 'medium': 1, 'high':2})),
-    ('map_gender', CustomMappingTransformer('Gender', {'Male': 0, 'Female': 1})),
-    ('tukey_age', CustomTukeyTransformer(target_column = 'Age', fence='inner')),  
-    ('tukey_time spent', CustomTukeyTransformer(target_column = 'Time Spent', fence='inner')), 
+    ('tukey_age', CustomTukeyTransformer(target_column='Age', fence='inner')),
+    ('tukey_time spent', CustomTukeyTransformer(target_column='Time Spent', fence='inner')),
     ('scale_age', CustomRobustTransformer('Age')),
     ('scale_time spent', CustomRobustTransformer('Time Spent')),
     ('impute', CustomKNNTransformer(n_neighbors=5)),
-    ], verbose=True)
+], verbose=True)
+
