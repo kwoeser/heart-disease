@@ -12,6 +12,7 @@ from sklearn.metrics import f1_score  #typical metric used to measure goodness o
 import sklearn
 sklearn.set_config(transform_output="pandas")  #says pass pandas tables through pipeline instead of numpy matrices
 import warnings
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, roc_auc_score
 
 titanic_variance_based_split = 107   #add to your library
 customer_variance_based_split = 113  #add to your library
