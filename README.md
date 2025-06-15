@@ -1,4 +1,4 @@
-# Heart Disease Predictor 
+# Heart Failure Predictor 
 
 A machine learning model to predict heart failure based on patient health data. Built for CS423 final assignment.
 
