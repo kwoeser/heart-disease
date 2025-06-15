@@ -1,4 +1,4 @@
-from __future__ import annotations  #must be first line in your library!
+from __future__ import annotations  
 import pandas as pd
 import numpy as np
 import types
@@ -17,9 +17,14 @@ from sklearn.linear_model import LogisticRegressionCV
 from sklearn.experimental import enable_halving_search_cv
 from sklearn.model_selection import HalvingGridSearchCV, ParameterGrid
 
-titanic_variance_based_split = 107   #add to your library
-customer_variance_based_split = 113  #add to your library
+titanic_variance_based_split = 107   
+customer_variance_based_split = 113  
 
+
+"""
+Library for CS 423 - Used for the heart failure prediction app
+
+"""
 
 class CustomMappingTransformer(BaseEstimator, TransformerMixin):
     """
